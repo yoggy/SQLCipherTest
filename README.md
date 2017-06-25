@@ -7,8 +7,11 @@ ORMLiteとSQLiteCipherの組み合わせサンプル。
 * [GitHub - Andoctorey/ormlite-sqlcipher: Patched OrmLite Android library which encrypts persistent data transparently with SQLCipher](https://github.com/Andoctorey/ormlite-sqlcipher)
   * SQLCipherとOrmLiteを組み合わせて使うためのライブラリ
 * [OrmLite - Lightweight Object Relational Mapping (ORM) Java Package](http://ormlite.com/)
+  * Android環境で使えるSQLite用ORマッパー
   * [ISC license](http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_9.html#License)
 * [SQLCipher - Zetetic](https://www.zetetic.net/sqlcipher/sqlcipher-for-android/)
+  * AndroidのSQLiteファイルを透過的に暗号化保存するライブラリ。内部でJNIが使われている
+  * 暗号化・複合処理が入るため少し性能劣化するが、使ってみた感じでは実用的な速度で動作する印象
   * Community Editionは[BSDライセンス](https://www.zetetic.net/sqlcipher/license/)
 
 使い方メモ
@@ -35,9 +38,11 @@ ORMLiteとSQLiteCipherの組み合わせサンプル。
     を使用する。
 
 (3) HelperクラスにgetPassword()メソッドを追加する
+    - getPassword()はSQLCipherが暗号化用のパスワードを取得するために呼び出すメソッド。
+    - サンプルではソースコードにパスワードをハードコーディングしているが、実際には端末毎に異なるパスワードを使用するのがよさげ
 
 (4) アプリ起動時にSQLiteDatabase.loadLibs(context);を実行する
-    - これを実行するとJNIライブラリを読み込む。実行しないとデータベースファイルのンに失敗する…
+    - これを実行するとJNIライブラリを読み込む。実行しないとデータベースファイルのオープンsに失敗する…
 
 
 Copyright and license
